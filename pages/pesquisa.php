@@ -72,7 +72,8 @@
                                         <td>$dataRegistro</td>
                                         <td width=180px>
                                             <a href = 'cadastro_put.php?id=$idProduto' class = 'btn btn-success'>Editar</a>
-                                            <a href = '#' class = 'btn btn-danger'>Excluir</a>
+                                            <a href = '#' class = 'btn btn-danger' data-toggle='modal' data-target='#confirma'
+                                            onclick=" .'"' ."obterDados($idProduto, '$nome')" .'"' .">Excluir</a>
                                         </td>
                                     </tr>";
                             }
@@ -84,6 +85,40 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+<div class="modal fade" id="confirma" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirmação de exclusão</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>    
+      </div>
+      <div class="modal-body">
+        <form action="delete_script.php" method="POST">
+        <p>Deseja realmente excluir o produto: <b id="nome"></b>?</p>
+      </div>
+      <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+            <input type="hidden" name="nome" id="nome_produto" value="">
+            <input type="hidden" name="id" id="idProduto" value="">
+            <input type="submit" class="btn btn-danger" value="Sim">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+    function obterDados(id, nome){
+        document.getElementById('nome').innerHTML = nome;
+        document.getElementById('nome_produto').value = nome;
+        document.getElementById('idProduto').value = id;
+    }
+</script>
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
