@@ -15,7 +15,7 @@
         <div class="row">
             <div class="col">
                 <h1>Cadastro de Itens</h1>
-                <form action="cadastro_script.php" method="POST">
+                <form action="cadastro_script.php" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="nome">Nome Produto</label>
                         <input type="text" class="form-control" name="nome" placeholder="Nome Produto" require>
@@ -40,6 +40,10 @@
                     <div class="form-group">
                         <label for="quantidade">Quantidade</label>
                         <input type="number" class="form-control" name="quantidade" placeholder="Unidades" require>
+                    </div>
+                    <div class="form-group">
+                        <label for="imagem">Imagem</label>
+                        <input type="file" class="form-control" name="imagem" accept=".jpg, .jpeg, .png, .gif" >
                     </div>
                     <div class="form-group">
                         <input type="submit" class="btn btn-success" value="Cadastrar">

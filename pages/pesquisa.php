@@ -17,13 +17,10 @@
 
         include "../connection.php";
 
-        $sql = "SELECT * FROM produtos WHERE nome LIKE '%$pesquisa%'";
+        $sql = "SELECT * FROM produto WHERE nome LIKE '%$pesquisa%'";
 
         $dados = mysqli_query($conn, $sql)
     ?>
-
-
-
 
     <div class="container">
         <div class="row">

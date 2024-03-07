@@ -25,7 +25,7 @@
                 $quantidade = $_POST['quantidade'];
                 $dataRegistro = date("Y-m-d");
 
-                $sql = "UPDATE `produtos` SET `nome` = '$nome', `material` = '$material', `tamanho` = $tamanho, `valorCompra` = $valorCompra, `valorVenda` = $valorVenda, `quantidade`= $quantidade WHERE idProduto = $id";
+                $sql = "UPDATE `produto` SET `nome` = '$nome', `material` = '$material', `tamanho` = $tamanho, `valorCompra` = $valorCompra, `valorVenda` = $valorVenda, `quantidade`= $quantidade WHERE idProduto = $id";
 
                 
 

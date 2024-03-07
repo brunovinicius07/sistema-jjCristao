@@ -24,16 +24,17 @@
                 $quantidade = $_POST['quantidade'];
                 $dataRegistro = date("Y-m-d");
 
-                $sql = "INSERT INTO `produtos`(`nome`, `material`, `tamanho`, `valorCompra`, `valorVenda`, `quantidade`, 
-                                               `dataRegistro`)
-                        VALUES (?, ?, ?, ?, ?, ?, ?)";
+                $imagem = $_FILES['imagem'];
+                $nomeImagem = $imagem['name'];
+
+                $sql = "INSERT INTO `produto`(`nome`, `material`, `tamanho`, `valorCompra`, `valorVenda`, `quantidade`, 
+                                               `dataRegistro`, `imagem`)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
                 $stmt = mysqli_prepare($conn, $sql);
 
                 if ($stmt) {
-                    mysqli_stmt_bind_param($stmt, "ssiddis", $nome, $material, $tamanho, $valorCompra, $valorVenda, 
-                                           $quantidade, 
-                                        $dataRegistro);
+                    mysqli_stmt_bind_param($stmt, "ssiddiss", $nome, $material, $tamanho, $valorCompra, $valorVenda, $quantidade, $dataRegistro, $nomeImagem);
                     if (mysqli_stmt_execute($stmt)) {
                         mensagem("Produto: <strong>$nome</strong> cadastrado com sucesso!", 'success');
                     } else {

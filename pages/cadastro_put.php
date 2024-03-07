@@ -16,7 +16,7 @@
         include "../connection.php";
 
         $id = $_GET['id'] ?? '';
-        $sql = "SELECT * FROM produtos WHERE idProduto = $id";
+        $sql = "SELECT * FROM produto WHERE idProduto = $id";
 
         $dados = mysqli_query($conn, $sql);
         $linha = mysqli_fetch_assoc($dados);
