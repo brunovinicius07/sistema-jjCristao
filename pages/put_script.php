@@ -14,7 +14,7 @@
     <div class="container">
         <div class="row">
             <?php 
-                include "../connection.php";
+                include "../connection/connection.php";
 
                 $id = $_POST['id'];
                 $nome = $_POST['nome'];

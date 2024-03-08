@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <link rel="stylesheet" href="../css/estilo.css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
@@ -14,7 +14,7 @@
     <div class="container">
         <div class="row">
             <?php 
-                include "../connection.php";
+                include "../connection/connection.php";
 
                 $nome = $_POST['nome'];
                 $material  = $_POST['material'];
@@ -25,27 +25,21 @@
                 $dataRegistro = date("Y-m-d");
 
                 $imagem = $_FILES['imagem'];
-                $nomeImagem = $imagem['name'];
+                $nomeImagem = moverImagem($imagem);
+                
+                $sql = "INSERT INTO `produto`(`nome`, `material`, `tamanho`, `valorCompra`, `valorVenda`, `quantidade`,     
+                                              `dataRegistro`, `imagem`)
+                VALUES ('$nome', '$material', '$tamanho', '$valorCompra', '$valorVenda', '$quantidade', '$dataRegistro', 
+                        '$nomeImagem')";
 
-                $sql = "INSERT INTO `produto`(`nome`, `material`, `tamanho`, `valorCompra`, `valorVenda`, `quantidade`, 
-                                               `dataRegistro`, `imagem`)
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-
-                $stmt = mysqli_prepare($conn, $sql);
-
-                if ($stmt) {
-                    mysqli_stmt_bind_param($stmt, "ssiddiss", $nome, $material, $tamanho, $valorCompra, $valorVenda, $quantidade, $dataRegistro, $nomeImagem);
-                    if (mysqli_stmt_execute($stmt)) {
-                        mensagem("Produto: <strong>$nome</strong> cadastrado com sucesso!", 'success');
-                    } else {
-                        mensagem("Produto: $nome NÃO cadastrado!", 'danger');
-                    }
-                    mysqli_stmt_close($stmt);
+                if (mysqli_query($conn, $sql)) {
+                    echo "<img src='../img/$nomeImagem' title='$nomeImagem' class='mostrar_img'>";
+                    mensagem("Produto: <strong>$nome</strong> cadastrado com sucesso!", 'success');
                 } else {
-                    mensagem("Erro na preparação da consulta!", 'danger');
-                }
+                mensagem("Produto: $nome NÃO cadastrado!", 'danger');
+            }
             ?>
-            <br>
+            <hr>
             <a href="index.php" class="btn btn-primary">Voltar</a>
         </div>
     </div>

@@ -13,7 +13,7 @@
   <body>
 
     <?php 
-        include "../connection.php";
+        include "../connection/connection.php";
 
         $id = $_GET['id'] ?? '';
         $sql = "SELECT * FROM produto WHERE idProduto = $id";

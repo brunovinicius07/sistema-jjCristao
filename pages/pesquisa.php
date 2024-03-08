@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <link rel="stylesheet" href="../css/estilo.css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
@@ -15,7 +15,7 @@
     <?php     
         $pesquisa = $_POST['busca'] ?? '';
 
-        include "../connection.php";
+        include "../connection/connection.php";
 
         $sql = "SELECT * FROM produto WHERE nome LIKE '%$pesquisa%'";
 
@@ -36,6 +36,7 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
+                            <th>Imagem</th>
                             <th>Nome</th>
                             <th>Material</th>
                             <th>Tamanho</th>
@@ -56,10 +57,12 @@
                                $valorCompra = $linha['valorCompra']; 
                                $valorVenda = $linha['valorVenda']; 
                                $quantidade = $linha['quantidade']; 
+                               $imagem = $linha['imagem'];
                                $dataRegistro = $linha['dataRegistro']; 
                                $dataRegistro = mostrarData($dataRegistro); 
 
                                echo "<tr>
+                                        <th><img src='../img/$imagem' class='lista_img'></th>
                                         <th scope='row'>$nome</th>
                                         <td>$material</td>
                                         <td>$tamanho</td>

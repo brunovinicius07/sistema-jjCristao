@@ -43,7 +43,7 @@
                     </div>
                     <div class="form-group">
                         <label for="imagem">Imagem</label>
-                        <input type="file" class="form-control" name="imagem" accept=".jpg, .jpeg, .png, .gif" >
+                        <input type="file" class="form-control" name="imagem" accept=".jpg" >
                     </div>
                     <div class="form-group">
                         <input type="submit" class="btn btn-success" value="Cadastrar">
