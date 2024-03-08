@@ -27,9 +27,6 @@
 
                 $sql = "UPDATE `produto` SET `nome` = '$nome', `material` = '$material', `tamanho` = $tamanho, `valorCompra` = $valorCompra, `valorVenda` = $valorVenda, `quantidade`= $quantidade WHERE idProduto = $id";
 
-                
-
-
                     if (mysqli_query($conn, $sql)) {
                         mensagem("Produto: <strong>$nome</strong> alterado com sucesso!", 'success');
                     } else {
@@ -40,7 +37,6 @@
             <a href="index.php" class="btn btn-primary">Voltar</a>
         </div>
     </div>
-
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
