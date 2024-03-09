@@ -5,12 +5,32 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="../css/estilo.css">
+    <link rel="icon" type="imagem/png" href="../logo/6eacc63d-46b9-4a6c-ae9b-fdb9579be941-removebg-preview (2).png"/>
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <title>Pesquisar</title>
   </head>
-  <body>
+  <body style="background-color: #F6F3EA;">
+    <header>
+        <div class="header">
+          <div class="logo">
+              <div class="logoimg"><a href=""><img src="../logo/6eacc63d-46b9-4a6c-ae9b-fdb9579be941-removebg-preview (2).png" alt=""></a></div>
+          </div>
+          <div class="menu">
+              <img class="menu-opener" src="assets/images/menu.png">
+                <nav>
+                    <ul>
+                        <li><a href="index.php">Home</a></li>
+                        <li><a href="cadastro.php">Cadastrar Produto</a></li>
+                        <li class="active"><a href="pesquisa.php">Estoque</a></li>
+                        <li><a href="">Entra / Saída</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
 
     <?php     
         $pesquisa = $_POST['busca'] ?? '';
@@ -26,7 +46,7 @@
         <div class="row">
             <div class="col">
                 <h1>Pesquisar</h1>
-                <nav class="navbar navbar-light bg-light">
+                <nav style="background-color: #F6F3EA;" >
                     <form class="form-inline" action="pesquisa.php" method="POST">
                        <input class="form-control mr-sm-2" type="search" placeholder="Produto" aria-label="Search" name="busca" autofocus>
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
