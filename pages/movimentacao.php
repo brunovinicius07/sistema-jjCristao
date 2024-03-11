@@ -24,8 +24,8 @@
                     <ul>
                         <li><a href="index.php">Home</a></li>
                         <li><a href="cadastro.php">Cadastrar Produto</a></li>
-                        <li class="active"><a href="pesquisa.php">Estoque</a></li>
-                        <li><a href="movimentacao.php">Entrada / Saída</a></li>
+                        <li><a href="pesquisa.php">Estoque</a></li>
+                        <li class="active"><a href="movimentacao.php">Entrada / Saída</a></li>
                         <li><a href="financeiro.php">Financeiro</a></li>
                     </ul>
                 </nav>
@@ -61,10 +61,7 @@
                             <th>Nome</th>
                             <th>Material</th>
                             <th>Tamanho</th>
-                            <th>Valor Compra</th>
-                            <th>Valor Venda</th>
                             <th>Quantidade</th>
-                            <th>Data de Registro</th>
                             <th>Funções</th>
                         </tr>
                     </thead>
@@ -75,26 +72,19 @@
                                $nome = $linha['nome']; 
                                $material = $linha['material']; 
                                $tamanho = $linha['tamanho']; 
-                               $valorCompra = $linha['valorCompra']; 
-                               $valorVenda = $linha['valorVenda']; 
                                $quantidade = $linha['quantidade']; 
                                $imagem = $linha['imagem'];
-                               $dataRegistro = $linha['dataRegistro']; 
-                               $dataRegistro = mostrarData($dataRegistro); 
 
                                echo "<tr>
                                         <th><img src='../img/$imagem' class='lista_img'></th>
                                         <th scope='row'>$nome</th>
                                         <td>$material</td>
                                         <td>$tamanho cm</td>
-                                        <td>R$ $valorCompra</td>
-                                        <td>R$ $valorVenda</td>
                                         <td>$quantidade uni</td>
-                                        <td>$dataRegistro</td>
                                         <td width=180px>
-                                            <a href = 'cadastro_put.php?id=$idProduto' class = 'btn btn-success'>Editar</a>
+                                            <a href = 'cadastro_put.php?id=$idProduto' class = 'btn btn-success'>Entrada</a>
                                             <a href = '#' class = 'btn btn-danger' data-toggle='modal' data-target='#confirma'
-                                            onclick=" .'"' ."obterDados($idProduto, '$nome')" .'"' .">Excluir</a>
+                                            onclick=" .'"' ."obterDados($idProduto, '$nome')" .'"' .">Saída</a>
                                         </td>
                                     </tr>";
                             }

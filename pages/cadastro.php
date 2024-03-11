@@ -25,7 +25,8 @@
                         <li><a href="index.php">Home</a></li>
                         <li class="active"><a href="cadastro.php">Cadastrar Produto</a></li>
                         <li><a href="pesquisa.php">Estoque</a></li>
-                        <li><a href="">Entra / Saída</a></li>
+                        <li><a href="movimentacao.php">Entrada / Saída</a></li>
+                        <li><a href="financeiro.php">Financeiro</a></li>
                     </ul>
                 </nav>
             </div>
@@ -63,7 +64,7 @@
                     </div>
                     <div class="form-group">
                         <label for="imagem">Imagem</label>
-                        <input type="file" class="form-control" name="imagem" accept=".jpg" >
+                        <input type="file" class="form-control" name="imagem" accept="image/*" >
                     </div>
                     <div class="form-group">
                         <input type="submit" class="btn btn-success" value="Cadastrar">

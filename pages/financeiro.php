@@ -20,11 +20,11 @@
             <img class="menu-opener" src="assets/images/menu.png">
               <nav>
                   <ul>
-                      <li class="active"><a href="index.php">Home</a></li>
+                      <li><a href="index.php">Home</a></li>
                       <li><a href="cadastro.php">Cadastrar Produto</a></li>
                       <li><a href="pesquisa.php">Estoque</a></li>
                       <li><a href="movimentacao.php">Entrada / Saída</a></li>
-                      <li><a href="financeiro.php">Financeiro</a></li>
+                      <li class="active"><a href="financeiro.php">Financeiro</a></li>
                   </ul>
               </nav>
           </div>
