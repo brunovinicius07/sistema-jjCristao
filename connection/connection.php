@@ -5,7 +5,7 @@
     $db = "jjCristao";
 
     if ( $conn = mysqli_connect($server, $user, $password, $db) ) {
-      //  echo "Conectado!";
+        echo "Conectado!";
     } else {
         echo "Error!";
     }
