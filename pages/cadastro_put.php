@@ -4,19 +4,40 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="../css/estilo.css">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <title>Editar Produto</title>
   </head>
-  <body>
+  <body style="background-color: #F6F3EA;">
+  <header>
+        <div class="header">
+          <div class="logo">
+              <div class="logoimg"><a href=""><img src="../logo/6eacc63d-46b9-4a6c-ae9b-fdb9579be941-removebg-preview (2).png" alt=""></a></div>
+          </div>
+          <div class="menu">
+              <img class="menu-opener" src="assets/images/menu.png">
+                <nav>
+                    <ul>
+                        <li><a href="index.php">Home</a></li>
+                        <li><a href="cadastro.php">Cadastrar Produto</a></li>
+                        <li  class="active"><a href="pesquisa.php">Estoque</a></li>
+                        <li><a href="movimentacao.php">Entrada / Saída</a></li>
+                        <li><a href="venda.php">Venda</a></li>
+                        <li><a href="financeiro.php">Financeiro</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
 
     <?php 
         include "../connection/connection.php";
 
         $id = $_GET['id'] ?? '';
-        $sql = "SELECT * FROM produto WHERE idProduto = $id";
+        $sql = "SELECT * FROM product WHERE idProduto = $id";
 
         $dados = mysqli_query($conn, $sql);
         $linha = mysqli_fetch_assoc($dados);
@@ -48,16 +69,12 @@
                         <input type="number" class="form-control" name="valorVenda" placeholder="Preço" step="0.01" require value="<?php echo $linha['valorVenda'];?>">
                     </div>
                     <div class="form-group">
-                        <label for="quantidade">Quantidade</label>
-                        <input type="number" class="form-control" name="quantidade" placeholder="Unidades" require value="<?php echo $linha['quantidade'];?>">
-                    </div>
-                    <div class="form-group">
                         <input type="submit" class="btn btn-success" value="Salvar Alterações">
                         <input type="hidden" name="id" value="<?php echo $linha['idProduto'] ?>">
                     </div>
                 
                 </form>
-                <a href="index.php" class="btn btn-info">Voltar</a>
+                <a href="pesquisa.php" class="btn btn-info">Voltar</a>
             </div>
         </div>
     </div>

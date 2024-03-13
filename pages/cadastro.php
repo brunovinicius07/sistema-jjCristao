@@ -26,6 +26,7 @@
                         <li class="active"><a href="cadastro.php">Cadastrar Produto</a></li>
                         <li><a href="pesquisa.php">Estoque</a></li>
                         <li><a href="movimentacao.php">Entrada / Saída</a></li>
+                        <li><a href="venda.php">Venda</a></li>
                         <li><a href="financeiro.php">Financeiro</a></li>
                     </ul>
                 </nav>

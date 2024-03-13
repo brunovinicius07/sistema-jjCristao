@@ -27,8 +27,7 @@
                 $imagem = $_FILES['imagem'];
                 $nomeImagem = moverImagem($imagem);
                 
-                $sql = "INSERT INTO `produto`(`nome`, `material`, `tamanho`, `valorCompra`, `valorVenda`, `quantidade`,     
-                                              `dataRegistro`, `imagem`)
+                $sql = "INSERT INTO `product`(`nome`, `material`, `tamanho`, `valorCompra`, `valorVenda`, `quantidade`,  `dataRegistro`, `imagem`)
                 VALUES ('$nome', '$material', '$tamanho', '$valorCompra', '$valorVenda', '$quantidade', '$dataRegistro', 
                         '$nomeImagem')";
 

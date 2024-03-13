@@ -19,7 +19,7 @@
                 $id = $_POST['id'];
                 $nome = $_POST['nome'];
 
-                $sql = "DELETE FROM `produto` WHERE idProduto = $id";
+                $sql = "DELETE FROM `product` WHERE idProduto = $id";
 
                     if (mysqli_query($conn, $sql)) {
                         mensagem("Produto: <strong>$nome</strong> excluido com sucesso!", 'success');

@@ -26,6 +26,7 @@
                         <li><a href="cadastro.php">Cadastrar Produto</a></li>
                         <li class="active"><a href="pesquisa.php">Estoque</a></li>
                         <li><a href="movimentacao.php">Entrada / Saída</a></li>
+                        <li><a href="venda.php">Venda</a></li>
                         <li><a href="financeiro.php">Financeiro</a></li>
                     </ul>
                 </nav>
@@ -38,7 +39,7 @@
 
         include "../connection/connection.php";
 
-        $sql = "SELECT * FROM produto WHERE nome LIKE '%$pesquisa%'";
+        $sql = "SELECT * FROM product WHERE nome LIKE '%$pesquisa%'";
 
         $dados = mysqli_query($conn, $sql)
     ?>
@@ -92,7 +93,7 @@
                                         <td>$quantidade uni</td>
                                         <td>$dataRegistro</td>
                                         <td width=180px>
-                                            <a href = 'cadastro_put.php?id=$idProduto' class = 'btn btn-success'>Editar</a>
+                                            <a href = 'cadastro_put.php?id=$idProduto' class = 'btn btn-primary'>Editar</a>
                                             <a href = '#' class = 'btn btn-danger' data-toggle='modal' data-target='#confirma'
                                             onclick=" .'"' ."obterDados($idProduto, '$nome')" .'"' .">Excluir</a>
                                         </td>
@@ -122,7 +123,7 @@
         <p>Deseja realmente excluir o produto: <b id="nome"></b>?</p>
       </div>
       <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+            <a href="pesquisa.php" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</a>
             <input type="hidden" name="nome" id="nome_produto" value="">
             <input type="hidden" name="id" id="idProduto" value="">
             <input type="submit" class="btn btn-danger" value="Sim">

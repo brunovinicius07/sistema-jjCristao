@@ -1,11 +1,11 @@
 <?php 
     $server = "localhost";
     $user = "root";
-    $password = "12345678";
+    $password = "";
     $db = "jjCristao";
 
     if ( $conn = mysqli_connect($server, $user, $password, $db) ) {
-        echo "Conectado!";
+        //echo "Conectado!";
     } else {
         echo "Error!";
     }

@@ -22,10 +22,9 @@
                 $tamanho = $_POST['tamanho'];
                 $valorCompra = $_POST['valorCompra'];
                 $valorVenda = $_POST['valorVenda'];
-                $quantidade = $_POST['quantidade'];
                 $dataRegistro = date("Y-m-d");
 
-                $sql = "UPDATE `produto` SET `nome` = '$nome', `material` = '$material', `tamanho` = $tamanho, `valorCompra` = $valorCompra, `valorVenda` = $valorVenda, `quantidade`= $quantidade WHERE idProduto = $id";
+                $sql = "UPDATE `product` SET `nome` = '$nome', `material` = '$material', `tamanho` = $tamanho, `valorCompra` = $valorCompra, `valorVenda` = $valorVenda WHERE idProduto = $id";
 
                     if (mysqli_query($conn, $sql)) {
                         mensagem("Produto: <strong>$nome</strong> alterado com sucesso!", 'success');
