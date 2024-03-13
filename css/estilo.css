@@ -4,12 +4,36 @@
     box-sizing: border-box;
 }
 .lista_img{
-    width: 80px;
-    border-radius: 70px;
+    width: 100px;
+    border-radius: 10px;
 }
 .mostrar_img{
     width: 250px;
 }
+
+.mensagem-container {
+    display: flex;
+    align-items: center; /* Alinha os itens verticalmente ao centro */
+}
+
+.mostrar_image {
+    width: 80px; /* Ajuste o tamanho conforme necessário */
+    height: auto; /* Altura automática para manter a proporção da imagem */
+    border-radius: 50%; /* Para tornar a imagem circular, definimos a metade da largura como raio */
+    border: 2px solid #fff; /* Adicione uma borda branca para garantir que as bordas arredondadas sejam visíveis */
+    margin-right: 10px; /* Espaçamento à direita da imagem */
+}
+
+.mensagem-texto {
+    flex: 1; /* Ocupa o espaço restante disponível */
+}
+
+
+
+.mensagem {
+    text-align: center; /* Alinha o texto ao centro */
+}
+
 body{
     font-family: Montserrat,Arial, Arial, Helvetica, sans-serif;
     font-size: 13px;

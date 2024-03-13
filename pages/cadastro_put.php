@@ -67,6 +67,9 @@
                     <div class="form-group">
                         <label for="valorVenda">Valor de Venda</label>
                         <input type="number" class="form-control" name="valorVenda" placeholder="Preço" step="0.01" require value="<?php echo $linha['valorVenda'];?>">
+                    <div class="form-group">
+                        <label for="valorVenda">Imagem</label>
+                        <input type="file" class="form-control" name="imagem" placeholder="Imagem" step="0.01" require value="<?php echo $linha['imagem'];?>">    
                     </div>
                     <div class="form-group">
                         <input type="submit" class="btn btn-success" value="Salvar Alterações">
