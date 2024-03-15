@@ -113,7 +113,9 @@ $linha = mysqli_fetch_assoc($dados);
                     <div class='form-group'>
                         <?php 
                             echo "<div class='mensagem-container'>";
-                            echo "<div class='mensagem-texto'>Produto: <strong>{$linha['nome']}</strong> editado com sucesso!</div>";
+                            echo "<img src='../img/" . $linha['imagem'] . "' title='" . $linha['imagem'] . "' class='mostrar_image'>";
+                            echo "<div class='mensagem-texto'>Produto: <strong>$nome</strong> editado com sucesso!";
+                            echo "</div>";
                             echo "</div>";
                         ?>
                     </div>
@@ -125,6 +127,7 @@ $linha = mysqli_fetch_assoc($dados);
         </div>
     </div>
 </div>
+
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
