@@ -131,6 +131,7 @@
                     <a href="#" class="btn btn-secondary" data-dismiss="modal">Não</a>
                     <input type="hidden" name="nome" id="nome_produto" value="">
                     <input type="hidden" name="id" id="idProduto" value="">
+                    <input type="hidden" name="imagem" id="imagem_produto" value="">
                     <input type="submit" class="btn btn-danger" value="Sim">
                 </form>
             </div>
@@ -146,6 +147,7 @@
         document.getElementById('imagem_produto').innerHTML = "<img src='../img/" + imagemUrl + "' class='mostrar_image'>";
     }
 </script>
+
 
 
 <!-- Optional JavaScript -->

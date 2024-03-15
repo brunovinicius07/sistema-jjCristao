@@ -8,8 +8,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nome = $_POST['nome'];
 
     $sql = "DELETE FROM `product` WHERE idProduto = $id";
-    $dados = mysqli_query($conn, $sql);
-    $linha = mysqli_fetch_assoc($dados);
 
     if (mysqli_query($conn, $sql)) {
         $exclusao_sucesso = true;
@@ -41,9 +39,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <img class="menu-opener" src="assets/images/menu.png">
               <nav>
                   <ul>
-                      <li><a href="index.php">Home</a></li>
+                      <li class="active"><a href="index.php">Home</a></li>
                       <li><a href="cadastro.php">Cadastrar Produto</a></li>
-                      <li class="active"><a href="pesquisa.php">Estoque</a></li>
+                      <li><a href="pesquisa.php">Estoque</a></li>
                       <li><a href="movimentacao.php">Entrada / Saída</a></li>
                       <li><a href="venda.php">Venda</a></li>
                       <li><a href="financeiro.php">Financeiro</a></li>
@@ -79,12 +77,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class='form-group'>
                         <?php 
                             echo "<div class='mensagem-container'>";
+                            echo "<img src='../logo/delete.png' class='mostrar_image'>";
                             echo "<div class='mensagem-texto'>Produto: <strong>$nome</strong> excluído com sucesso!</div>";
                             echo "</div>";
                         ?>
                     </div>
                     <input type='hidden' name='nome' id='nome_produto' value=''>
                     <input type='hidden' name='id' id='idProduto' value=''>
+                    <input type='hidden' name='imagem' id='imagem_produto' value=''>
                 </form>
             </div>
             <div class='modal-footer'>
@@ -94,18 +94,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 </div>
 
-      <script>
-          $(document).ready(function(){
-              <?php if ($exclusao_sucesso) { ?>
-                  $('#exclusao-success').modal('show');
-              <?php } ?>
-          });
-      </script>  
-
       <!-- Optional JavaScript -->
       <!-- jQuery first, then Popper.js, then Bootstrap JS -->
       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function(){
+        <?php if ($exclusao_sucesso) { ?>
+            $('#exclusao-success').modal('show');
+        <?php } ?>
+    });
+</script>
+
 </body>
 </html>
