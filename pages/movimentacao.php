@@ -136,8 +136,8 @@ $dados = mysqli_query($conn, $sql)
                         <td>$tamanho cm</td>
                         <td>$quantidade uni</td>
                         <td width=180px>
-                            <a href='#' class='btn btn-primary' data-toggle='modal' data-target='#entrada' onclick='obterDados($idProduto, \"$nome\")'>Entrada</a>
-                            <a href='#' class='btn btn-success' data-toggle='modal' data-target='#saida' onclick='obterDados($idProduto, \"$nome\")'>Saída</a>
+                            <a href='#' class='btn btn-primary' data-toggle='modal' data-target='#entrada' onclick='obterDados($idProduto, \"$nome\", \"$imagem\")'>Entrada</a>
+                            <a href='#' class='btn btn-success' data-toggle='modal' data-target='#saida' onclick='obterDados($idProduto, \"$nome\", \"$imagem\")'>Saída</a>
                         </td>
                     </tr>";
                 }
@@ -163,11 +163,17 @@ $dados = mysqli_query($conn, $sql)
             <div class="modal-body">
                 <form id="form-entrada" method="POST">
                     <div class="form-group">
-                        <p>Informe a quantidade de <b id="nome"></b> para entrada em estoque:</p>
+                    <?php 
+                            echo "<div class='mensagem-container'>";
+                            echo "<div id='imagem_produto' class='mostrar_image'></div>";
+                            echo "<div class='mensagem-texto'>Informe a quantidade de <b id='nome'></b> para entrada em estoque:</div>";
+                            echo "</div>";
+                        ?>
                         <input type="number" id="quantidade-entrada" class="form-control" name="quantidade-entrada" placeholder="Unidades" required>
                     </div>
                     <input type="hidden" name="nome" id="nome_produto" value="">
                     <input type="hidden" name="id" id="idProduto" value="">
+                    <input type="hidden" name="imagem" id="imagem_produto" value="">
                 </form>
             </div>
             <div class="modal-footer">
@@ -191,11 +197,17 @@ $dados = mysqli_query($conn, $sql)
             <div class="modal-body">
                 <form id="form-saida" method="POST">
                     <div class="form-group">
-                        <p>Informe a quantidade de <b id="nome_saida"></b> para saída em estoque:</p>
+                    <?php 
+                            echo "<div class='mensagem-container'>";
+                            echo "<div id='imagem_produto_saida' class='mostrar_image'></div>";
+                            echo "<div class='mensagem-texto'>Informe a quantidade de <b id='nome_saida'></b> para saída em estoque:</div>";
+                            echo "</div>";
+                        ?>
                         <input type="number" id="quantidade-saida" class="form-control" name="quantidade-saida" placeholder="Unidades" required>
                     </div>
-                    <input type="hidden" name="nome" id="nome" value="">
+                    <input type="hidden" name="nome" id="nome_saida" value="">
                     <input type="hidden" name="id" id="idProdutoSaida" value="">
+                    <input type="hidden" name="imagem" id="imagem_produto_saida" value="">
                 </form>
             </div>
             <div class="modal-footer">
@@ -207,13 +219,16 @@ $dados = mysqli_query($conn, $sql)
 </div>
 
 <script type="text/javascript">
-    function obterDados(id, nome){
+    function obterDados(id, nome, imagemUrl){
         document.getElementById('nome').innerHTML = nome;
         document.getElementById('nome_saida').innerHTML = nome;
         document.getElementById('nome_produto').value = nome;
         document.getElementById('idProduto').value = id;
+        document.getElementById('imagem_produto').innerHTML = "<img src='../img/" + imagemUrl + "' class='mostrar_image'>";
+        document.getElementById('imagem_produto_saida').innerHTML = "<img src='../img/" + imagemUrl + "' class='mostrar_image'>";
     }
 </script>
+
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
