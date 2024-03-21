@@ -66,25 +66,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['quantidade-entrada']))
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['quantidade-saida'])) {
     $idProduto = $_POST['id'];
     $quantidadeSaida = $_POST['quantidade-saida'];
-    echo $quantidadeSaida . $idProduto ."porra";
 
     // Consulta para obter a quantidade atual do produto
-    $consultaProduto = "SELECT quantidade FROM product WHERE idProduto = $idProduto";
+    $consultaProduto = "SELECT * FROM product WHERE idProduto = $idProduto";
     $resultadoConsulta = mysqli_query($conn, $consultaProduto);
 
     if ($resultadoConsulta) {
         $linha = mysqli_fetch_assoc($resultadoConsulta);
         $quantidadeAtual = $linha['quantidade'];
+        $nameProd = $linha['nome'];
     
         // Verifica se há quantidade suficiente para a saída
         if ($quantidadeAtual >= $quantidadeSaida) {
             // Calcula a nova quantidade
             $novaQuantidade = $quantidadeAtual - $quantidadeSaida;
-
+    
             // Atualiza a quantidade no banco de dados
             $atualizaQuantidade = "UPDATE product SET quantidade = $novaQuantidade WHERE idProduto = $idProduto";
             $resultadoAtualizacao = mysqli_query($conn, $atualizaQuantidade);
-
+    
             if ($resultadoAtualizacao) {
                 header("Location: msg_movimentacao.php?idProduto=$idProduto&quantidade=$quantidadeSaida");
                 exit();
@@ -92,11 +92,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['quantidade-saida'])) {
                 echo "<script>alert('Erro ao atualizar quantidade no banco de dados.');</script>";
             }
         } else {
-            echo "<script>alert('Quantidade insuficiente em estoque.');</script>";
+            // Mostra a mensagem de erro com o nome do produto e a tag <br> corretamente
+            echo "<script>alert('Tem $quantidadeAtual $nameProd no estoque, e você está tentando dar saída de $quantidadeSaida.\\n \\n Ação não pode ser realizada!');</script>";
         }
     } else {
         echo "<script>alert('Erro ao obter quantidade atual do produto.');</script>";
     }
+    
 }
 
 

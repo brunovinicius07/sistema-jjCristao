@@ -35,13 +35,12 @@
 </header>
 
 <?php
-include "../connection/connection.php"; // Inclua o arquivo de conexão com o banco de dados
+include "../connection/connection.php";
 
 $pesquisa = $_POST['busca'] ?? '';
 $sql = "SELECT * FROM product WHERE nome LIKE '%$pesquisa%'";
 $dados = mysqli_query($conn, $sql);
 
-// Verifica se os parâmetros foram passados na URL
 if(isset($_GET['idProduto']) && isset($_GET['quantidade'])) {
     $idProduto = $_GET['idProduto'];
     $quantidadeEntrada = $_GET['quantidade'];
@@ -50,29 +49,15 @@ if(isset($_GET['idProduto']) && isset($_GET['quantidade'])) {
     $consultaProduto = "SELECT * FROM product WHERE idProduto = $idProduto";
     $resultadoConsulta = mysqli_query($conn, $consultaProduto);
 
-    // Verifica se a consulta foi bem-sucedida
-    if($resultadoConsulta) {
-        // Verifica se o produto foi encontrado
-        if(mysqli_num_rows($resultadoConsulta) > 0) {
-            // Produto encontrado, obtenha os dados
-            $produto = mysqli_fetch_assoc($resultadoConsulta);
+    // Produto encontrado, obtenha os dados
+    $produto = mysqli_fetch_assoc($resultadoConsulta);
 
-            // Agora você pode acessar os dados do produto conforme necessário
-            $name = $produto['nome'];
-            $img = $produto['imagem'];
-            $quantidadeAtual = $produto['quantidade'];
-        } else {
-            // Produto não encontrado
-            echo "Erro: Produto não encontrado.";
-        }
-    } else {
-        // Erro na consulta ao banco de dados
-        echo "Erro: Não foi possível consultar o banco de dados.";
-    }
-} else {
-    // Lida com o caso em que os parâmetros não são passados corretamente
-    echo "Erro: Parâmetros ausentes na URL.";
-}
+    // Agora você pode acessar os dados do produto conforme necessário
+    $name = $produto['nome'];
+    $img = $produto['imagem'];
+    $quantidadeAtual = $produto['quantidade'];
+        
+} 
 ?>
 
 <div class="container">
@@ -128,24 +113,23 @@ if(isset($_GET['idProduto']) && isset($_GET['quantidade'])) {
     </div>
 </div>
 
-        <!-- Modal de sucesso -->
-        <div class="modal fade show" id="entrada-success" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+     
+<div class="modal fade show" id="entrada-success" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Entrada de produto</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Movimentação no Estoque</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <!-- Exibição da imagem e nome do produto -->
                 <div class='mensagem-container'>
                     <img src='../img/<?php echo $img; ?>' title='<?php echo $img; ?>' class='mostrar_image'>
                     <div class='mensagem-texto'>
-                    <strong>Foi adicionado <span class="quantidade-red"><?php echo $quantidadeEntrada; ?></span> <?php echo $name; ?>!<br>Quantidade atualizada no estoque: 
-                        <span class='quantidade-red'><?php echo $quantidadeAtual; ?></span> unidades.
-                    </strong>
+                    <div>Movimentação do produto <strong><?php echo $name; ?></strong> realizada com sucesso!<br>Quantidade atual no estoque: 
+                        <span class='quantidade-red'><?php echo $quantidadeAtual; ?> unidades.</span>
+                    </div>
                     </div>
                 </div>
             </div>
