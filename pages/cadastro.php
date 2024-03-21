@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="../css/estilo.css">
-    <link rel="icon" type="imagem/png" href="../logo/6eacc63d-46b9-4a6c-ae9b-fdb9579be941-removebg-preview (2).png"/>
+    <link rel="icon" type="imagem/png" href="../logo/jj-colorido-2.png"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Cadastro</title>
 </head>
@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <header>
     <div class="header">
         <div class="logo">
-            <div class="logoimg"><a href=""><img src="../logo/6eacc63d-46b9-4a6c-ae9b-fdb9579be941-removebg-preview (2).png" alt=""></a></div>
+        <div class="logoimg"><a href=""><img src="../logo/jj-colorido-1.png" alt=""></a></div>
         </div>
         <div class="menu">
             <img class="menu-opener" src="assets/images/menu.png">

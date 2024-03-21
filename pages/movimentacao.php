@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="../css/estilo.css">
-    <link rel="icon" type="imagem/png" href="../logo/6eacc63d-46b9-4a6c-ae9b-fdb9579be941-removebg-preview (2).png"/>
+    <link rel="icon" type="imagem/png" href="../logo/jj-colorido-2.png"/>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -16,7 +16,7 @@
 <header>
     <div class="header">
         <div class="logo">
-            <div class="logoimg"><a href=""><img src="../logo/6eacc63d-46b9-4a6c-ae9b-fdb9579be941-removebg-preview (2).png" alt=""></a></div>
+        <div class="logoimg"><a href=""><img src="../logo/jj-colorido-1.png" alt=""></a></div>
         </div>
         <div class="menu">
             <img class="menu-opener" src="assets/images/menu.png">
@@ -56,12 +56,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['quantidade-entrada']))
         // Atualiza a quantidade no banco de dados
         $atualizaQuantidade = "UPDATE product SET quantidade = $novaQuantidade WHERE idProduto = $idProduto";
         $resultadoAtualizacao = mysqli_query($conn, $atualizaQuantidade);
-    } else {
-        echo "<script>alert('Erro ao obter quantidade atual do produto.');</script>";
+        
+        header("Location: msg_movimentacao.php?idProduto=$idProduto&quantidade=$quantidadeEntrada");
+        exit();
     }
-
-    header("Location: movimentacao.php?" . http_build_query($_GET));
-    exit();
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['quantidade-saida'])) {
@@ -75,21 +73,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['quantidade-saida'])) {
     if ($resultConsulta) {
         $linha = mysqli_fetch_assoc($resultConsulta);
         $quantidadeAtual = $linha['quantidade'];
-
+    
         // Corrigindo o cálculo da nova quantidade
         $novaQuantidade = $quantidadeAtual - $quantidadeSaida; // Usando $quantidadeSaida em vez de $quantidadeEntrada
-
+    
         // Atualiza a quantidade no banco de dados
         $atualizaQuantidade = "UPDATE product SET quantidade = $novaQuantidade WHERE idProduto = $idProduto";
         $resultadoAtualizacao = mysqli_query($conn, $atualizaQuantidade);
-
+    
     } else {
         echo "<script>alert('Erro ao obter quantidade atual do produto.');</script>";
     }
+    
 
-    header("Location: movimentacao.php?" . http_build_query($_GET));
+    header("Location: msg_movimentacao.php?nome=$nome&imagem=$imagem");
     exit();
 }
+
 
 
 $pesquisa = $_POST['busca'] ?? '';
@@ -136,8 +136,9 @@ $dados = mysqli_query($conn, $sql)
                         <td>$tamanho cm</td>
                         <td>$quantidade uni</td>
                         <td width=180px>
-                            <a href='#' class='btn btn-primary' data-toggle='modal' data-target='#entrada' onclick='obterDados($idProduto, \"$nome\", \"$imagem\")'>Entrada</a>
-                            <a href='#' class='btn btn-success' data-toggle='modal' data-target='#saida' onclick='obterDados($idProduto, \"$nome\", \"$imagem\")'>Saída</a>
+                        <a href='#' class='btn btn-primary' data-toggle='modal' data-target='#entrada' onclick='obterDados($idProduto, \"$nome\", \"$imagem\")'>Entrada</a>
+                        <a href='#' class='btn btn-success' data-toggle='modal' data-target='#saida' onclick='obterDados($idProduto, \"$nome\", \"$imagem\")'>Saída</a>
+                        
                         </td>
                     </tr>";
                 }

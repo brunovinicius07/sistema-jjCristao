@@ -28,6 +28,10 @@
     flex: 1; /* Ocupa o espaço restante disponível */
 }
 
+.quantidade-red {
+    color: red; /* Cor vermelha para destacar a quantidade atual */
+    font-weight: bold; /* Texto em negrito */
+}
 
 
 .mensagem {
@@ -108,7 +112,7 @@ header{
 .banner{
     height:calc(86.5vh);
     background-color: #F6F3EA;
-    background-image: url('../logo/6eacc63d-46b9-4a6c-ae9b-fdb9579be941.png');
+    background-image: url('../logo/jj-colorido-2.png');
     background-size: contain;
     background-position: bottom;
     background-repeat: no-repeat;
