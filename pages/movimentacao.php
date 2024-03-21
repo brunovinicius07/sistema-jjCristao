@@ -62,39 +62,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['quantidade-entrada']))
     }
 }
 
+// Verifica se o formulário de saída foi submetido
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['quantidade-saida'])) {
     $idProduto = $_POST['id'];
     $quantidadeSaida = $_POST['quantidade-saida'];
+    echo $quantidadeSaida . $idProduto ."porra";
 
     // Consulta para obter a quantidade atual do produto
-    $consultProduto = "SELECT quantidade FROM product WHERE idProduto = $idProduto";
-    $resultConsulta = mysqli_query($conn, $consultProduto);
+    $consultaProduto = "SELECT quantidade FROM product WHERE idProduto = $idProduto";
+    $resultadoConsulta = mysqli_query($conn, $consultaProduto);
 
-    if ($resultConsulta) {
-        $linha = mysqli_fetch_assoc($resultConsulta);
+    if ($resultadoConsulta) {
+        $linha = mysqli_fetch_assoc($resultadoConsulta);
         $quantidadeAtual = $linha['quantidade'];
     
-        // Corrigindo o cálculo da nova quantidade
-        $novaQuantidade = $quantidadeAtual - $quantidadeSaida; // Usando $quantidadeSaida em vez de $quantidadeEntrada
-    
-        // Atualiza a quantidade no banco de dados
-        $atualizaQuantidade = "UPDATE product SET quantidade = $novaQuantidade WHERE idProduto = $idProduto";
-        $resultadoAtualizacao = mysqli_query($conn, $atualizaQuantidade);
-    
+        // Verifica se há quantidade suficiente para a saída
+        if ($quantidadeAtual >= $quantidadeSaida) {
+            // Calcula a nova quantidade
+            $novaQuantidade = $quantidadeAtual - $quantidadeSaida;
+
+            // Atualiza a quantidade no banco de dados
+            $atualizaQuantidade = "UPDATE product SET quantidade = $novaQuantidade WHERE idProduto = $idProduto";
+            $resultadoAtualizacao = mysqli_query($conn, $atualizaQuantidade);
+
+            if ($resultadoAtualizacao) {
+                header("Location: msg_movimentacao.php?idProduto=$idProduto&quantidade=$quantidadeSaida");
+                exit();
+            } else {
+                echo "<script>alert('Erro ao atualizar quantidade no banco de dados.');</script>";
+            }
+        } else {
+            echo "<script>alert('Quantidade insuficiente em estoque.');</script>";
+        }
     } else {
         echo "<script>alert('Erro ao obter quantidade atual do produto.');</script>";
     }
-    
-
-    header("Location: msg_movimentacao.php?nome=$nome&imagem=$imagem");
-    exit();
 }
-
 
 
 $pesquisa = $_POST['busca'] ?? '';
 $sql = "SELECT * FROM product WHERE nome LIKE '%$pesquisa%'";
-$dados = mysqli_query($conn, $sql)
+$dados = mysqli_query($conn, $sql);
 ?>
 
 <div class="container">
@@ -196,20 +204,20 @@ $dados = mysqli_query($conn, $sql)
                 </button>
             </div>
             <div class="modal-body">
-                <form id="form-saida" method="POST">
-                    <div class="form-group">
+            <form id="form-saida" method="POST">
+                <div class="form-group">
                     <?php 
-                            echo "<div class='mensagem-container'>";
-                            echo "<div id='imagem_produto_saida' class='mostrar_image'></div>";
-                            echo "<div class='mensagem-texto'>Informe a quantidade de <b id='nome_saida'></b> para saída em estoque:</div>";
-                            echo "</div>";
-                        ?>
-                        <input type="number" id="quantidade-saida" class="form-control" name="quantidade-saida" placeholder="Unidades" required>
-                    </div>
-                    <input type="hidden" name="nome" id="nome_saida" value="">
-                    <input type="hidden" name="id" id="idProdutoSaida" value="">
-                    <input type="hidden" name="imagem" id="imagem_produto_saida" value="">
-                </form>
+                    echo "<div class='mensagem-container'>";
+                    echo "<div id='imagem_produto_saida' class='mostrar_image'></div>";
+                    echo "<div class='mensagem-texto'>Informe a quantidade de <b id='nome_saida'></b> para saída em estoque:</div>";
+                    echo "</div>";
+                    ?>
+                    <input type="number" id="quantidade-saida" class="form-control" name="quantidade-saida" placeholder="Unidades" required>
+                </div>
+                <input type="hidden" name="nome" id="nome_saida" value="">
+                <input type="hidden" name="id" id="idProdutoSaida" value="">
+                <input type="hidden" name="imagem" id="imagem_produto_saida" value="">
+            </form>
             </div>
             <div class="modal-footer">
                 <a href="movimentacao.php" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Voltar</a>
@@ -225,6 +233,7 @@ $dados = mysqli_query($conn, $sql)
         document.getElementById('nome_saida').innerHTML = nome;
         document.getElementById('nome_produto').value = nome;
         document.getElementById('idProduto').value = id;
+        document.getElementById('idProdutoSaida').value = id;
         document.getElementById('imagem_produto').innerHTML = "<img src='../img/" + imagemUrl + "' class='mostrar_image'>";
         document.getElementById('imagem_produto_saida').innerHTML = "<img src='../img/" + imagemUrl + "' class='mostrar_image'>";
     }
