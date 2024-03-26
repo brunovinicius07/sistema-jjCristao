@@ -77,8 +77,7 @@ if (isset($_GET['produtos'])) {
                                     <p class="card-text">Preço de Venda: R$ <?php echo $valorVenda; ?></p>
                                     <div class="form-group">
                                         <label for="quantidade_<?php echo $idProduto; ?>">Quantidade:</label>
-                                        <input type="number" class="form-control" id="quantidade_<?php echo $idProduto; ?>" name="quantidade_<?php echo $idProduto; ?>" value="1" min="1" onchange="capturarQuantidade()">
-
+                                        <input type="number" class="form-control" id="quantidade_<?php echo $idProduto; ?>" name="quantidade_<?php echo $idProduto; ?>" value="1" min="1" onchange="atualizarValorTotalCompra()">
                                     </div>
                                 </div>
                             </div>
@@ -90,6 +89,7 @@ if (isset($_GET['produtos'])) {
                             <div class="card-body">
                                 <h5 class="card-title">Tem Desconto?</h5>
                                 <div class="form-group">
+                                    <p>Valor Total da Compra: R$ <span id="valor_total_compra"></span></p>
                                     <label>Informe se houve desconto:</label>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="desconto_global" id="desconto_sim_global" value="sim" onclick="toggleDescontoGlobal()">
@@ -109,7 +109,7 @@ if (isset($_GET['produtos'])) {
                     </div>
 
                 </div>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmarVendaModal">Confirmar Venda</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmarVendaModal" onclick="capturarQuantidade()">Confirmar Venda</button>
             </form>
 
             <a href="venda.php" class="btn btn-info mt-3">Voltar</a>
@@ -137,12 +137,13 @@ if (isset($_GET['produtos'])) {
                 <p>Valor Total da Venda: R$ <span id="valor_total_venda"></span></p> <!-- Adicionando um id para o span -->
             </div>
             <div class="modal-footer">
-                <a href="venda.php" class="btn btn-success">Voltar</a>
+                <a href="venda.php" class="btn btn-success">OK</a>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Adicione este script no final do seu arquivo HTML -->
 <script>
     // Função para capturar o valor da quantidade e calcular o total
     function capturarQuantidade() {
@@ -160,17 +161,54 @@ if (isset($_GET['produtos'])) {
         document.getElementById('valor_total_venda').textContent = totalVenda.toFixed(2); // Usando toFixed para exibir duas casas decimais
     }
 
-    // Chame esta função quando precisar capturar o valor
-    capturarQuantidade();
-</script>
-
-<script>
     function toggleDescontoGlobal() {
         var campoDesconto = document.getElementById('campo_desconto_global');
         var descontoCheckbox = document.getElementById('desconto_sim_global');
         campoDesconto.style.display = descontoCheckbox.checked ? 'block' : 'none';
     }
+
+    // Chame esta função quando precisar capturar o valor
+    capturarQuantidade();
+
+    // Função para atualizar o valor total da compra ao alterar a quantidade
+    function atualizarValorTotalCompra() {
+        var totalCompra = 0;
+
+        <?php foreach ($dados as $linha) { ?>
+            var inputQuantidade = document.getElementById('quantidade_<?php echo $linha['idProduto']; ?>');
+            var quantidade = parseInt(inputQuantidade.value);
+            totalCompra += (quantidade * <?php echo $linha['valorVenda']; ?>);
+        <?php } ?>
+
+        document.getElementById('valor_total_compra').textContent = totalCompra.toFixed(2);
+    }
+
+    // Chame esta função quando precisar atualizar o valor total da compra
+    atualizarValorTotalCompra();
+
 </script>
+
+<script>
+    // Chame esta função quando a página carregar
+    window.onload = function() {
+        toggleDescontoGlobal();
+    };
+</script>
+
+<script>
+    function atualizarValorTotalCompra() {
+        var totalCompra = 0;
+
+        <?php foreach ($dados as $linha) { ?>
+            var inputQuantidade = document.getElementById('quantidade_<?php echo $linha['idProduto']; ?>');
+            var quantidade = parseInt(inputQuantidade.value);
+            totalCompra += (quantidade * <?php echo $linha['valorVenda']; ?>);
+        <?php } ?>
+
+        document.getElementById('valor_total_compra').textContent = totalCompra.toFixed(2);
+    }
+</script>
+
 
 
 <!-- Optional JavaScript -->
