@@ -49,7 +49,7 @@
         <div class="col">
             <h1>Pesquisar</h1>
             <nav style="background-color: #F6F3EA;" >
-                <form class="form-inline" action="pesquisa.php" method="POST">
+                <form class="form-inline" action="venda.php" method="POST">
                     <input class="form-control mr-sm-2" type="search" placeholder="Produto" aria-label="Search" name="busca" autofocus>
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
                 </form>

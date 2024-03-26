@@ -77,7 +77,7 @@ if (isset($_GET['produtos'])) {
                                     <p class="card-text">Preço de Venda: R$ <?php echo $valorVenda; ?></p>
                                     <div class="form-group">
                                         <label for="quantidade_<?php echo $idProduto; ?>">Quantidade:</label>
-                                        <input type="number" class="form-control" id="quantidade_<?php echo $idProduto; ?>" name="quantidade_<?php echo $idProduto; ?>" value="1" min="1" onchange="atualizarValorTotalCompra()">
+                                        <input type="number" class="form-control" id="quantidade_<?php echo $idProduto; ?>" name="quantidade_<?php echo $idProduto; ?>" value="1" min="1">
                                     </div>
                                 </div>
                             </div>
@@ -89,7 +89,6 @@ if (isset($_GET['produtos'])) {
                             <div class="card-body">
                                 <h5 class="card-title">Tem Desconto?</h5>
                                 <div class="form-group">
-                                    <p>Valor Total da Compra: R$ <span id="valor_total_compra"></span></p>
                                     <label>Informe se houve desconto:</label>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="desconto_global" id="desconto_sim_global" value="sim" onclick="toggleDescontoGlobal()">
@@ -104,6 +103,8 @@ if (isset($_GET['produtos'])) {
                                     <label for="valor_desconto_global">Valor do Desconto:</label>
                                     <input type="number" class="form-control" id="valor_desconto_global" name="valor_desconto_global" placeholder="R$:">
                                 </div>
+                                <p><strong>Valor Total da Venda: R$ <span id="valor_total_compra"></span></strong></p>
+                                <p><strong>Valor Total Com Desconto: R$ <span id="valor_total_compra_com_desconto"></strong></span></p>
                             </div>
                         </div>
                     </div>
@@ -147,28 +148,63 @@ if (isset($_GET['produtos'])) {
 <script>
     // Função para capturar o valor da quantidade e calcular o total
     function capturarQuantidade() {
+        var todasAsQuantidadesValidas = true;
         var totalVenda = 0;
+        var totalVendaComDesconto = 0;
 
         <?php foreach ($dados as $linha) { ?>
             var inputQuantidade = document.getElementById('quantidade_<?php echo $linha['idProduto']; ?>');
             var quantidade = parseInt(inputQuantidade.value);
 
+            if (quantidade === 0) {
+                alert("Por favor, insira uma quantidade válida para o produto <?php echo $linha['nome']; ?>.");
+                return; // Retorna para evitar a abertura do modal
+            }
+
             // Aqui você pode fazer qualquer cálculo necessário, por exemplo, somar o preço do produto vezes a quantidade
             totalVenda += (quantidade * <?php echo $linha['valorVenda']; ?>);
         <?php } ?>
 
+        var descontoGlobalCheckbox = document.getElementById('desconto_sim_global');
+        var descontoGlobal = descontoGlobalCheckbox.checked;
+
+        if (descontoGlobal) {
+            // Obtém o valor do desconto informado pelo usuário
+            var valorDesconto = parseFloat(document.getElementById('valor_desconto_global').value);
+            // Calcula o total com desconto
+            totalVendaComDesconto = totalVenda - valorDesconto;
+        } else {
+            // Se não houver desconto, o total com desconto é o mesmo que o total sem desconto
+            totalVendaComDesconto = totalVenda;
+        }
+
         // Exibindo o valor total da venda
-        document.getElementById('valor_total_venda').textContent = totalVenda.toFixed(2); // Usando toFixed para exibir duas casas decimais
+        document.getElementById('valor_total_compra_com_desconto').textContent = totalVendaComDesconto.toFixed(2);
+        document.getElementById('valor_total_venda').textContent = totalVenda.toFixed(2); // Exibe o total sem desconto
     }
 
     function toggleDescontoGlobal() {
         var campoDesconto = document.getElementById('campo_desconto_global');
         var descontoCheckbox = document.getElementById('desconto_sim_global');
-        campoDesconto.style.display = descontoCheckbox.checked ? 'block' : 'none';
+
+        if (descontoCheckbox.checked) {
+        campoDesconto.style.display = 'block';
+        } else {
+            campoDesconto.style.display = 'none';
+            // Se o usuário escolheu "Não" para desconto, redefine o valor do campo de desconto para 0
+            document.getElementById('valor_desconto_global').value = "R$:";
+            // Recalcula o valor total da venda com desconto
+            capturarQuantidade();
+        }
     }
 
     // Chame esta função quando precisar capturar o valor
     capturarQuantidade();
+
+    document.getElementById('valor_desconto_global').addEventListener('input', function() {
+        // Chama a função capturarQuantidade para recalcular o valor total com desconto
+        capturarQuantidade();
+    });
 
     // Função para atualizar o valor total da compra ao alterar a quantidade
     function atualizarValorTotalCompra() {
@@ -196,6 +232,21 @@ if (isset($_GET['produtos'])) {
 </script>
 
 <script>
+    // Obtém todos os campos de quantidade com ID dinâmico
+    var camposQuantidade = document.querySelectorAll('[id^="quantidade_"]');
+
+    // Adiciona um evento input a cada campo de quantidade
+    camposQuantidade.forEach(function(campo) {
+        campo.addEventListener('input', function() {
+            atualizarValorTotalCompra(); // Chama a função para atualizar o valor total da compra
+            capturarQuantidade(); // Chama a função para recalcular o valor total com desconto
+        });
+    });
+</script>
+
+
+
+<script>
     function atualizarValorTotalCompra() {
         var totalCompra = 0;
 
@@ -208,6 +259,15 @@ if (isset($_GET['produtos'])) {
         document.getElementById('valor_total_compra').textContent = totalCompra.toFixed(2);
     }
 </script>
+
+<script>
+    // Adiciona um evento input ao campo de desconto
+    document.getElementById('valor_desconto_global').addEventListener('input', function() {
+        // Chama a função capturarQuantidade para recalcular o valor total com desconto
+        capturarQuantidade();
+    });
+</script>
+
 
 
 
