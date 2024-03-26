@@ -90,7 +90,7 @@
                                     <td>$quantidade uni</td>
                                     <td width=180px>
                                         
-                                    <button id='btn_$idProduto' class='btn btn-info' data-toggle='modal' data-target='#confirma' onclick='selecionarParaVenda($idProduto, \"$nome\", \"$imagem\")'>Selecionar Para Venda</button>
+                                    <button id='btn_$idProduto' class='btn btn-info' data-toggle='modal' data-target='#confirma' onclick='selecionarParaVenda($idProduto, \"$nome\", \"$imagem\")'>ADICIONAR À CARRINHO</button>
 
                                     </td>
                                 </tr>";
@@ -103,19 +103,19 @@
 
                         function selecionarParaVenda(id, nome, imagemUrl) {
                             var botao = document.getElementById('btn_' + id);
-                            if (botao.innerHTML === 'Selecionado') {
+                            if (botao.innerHTML === 'ADICIONADO') {
                                 // Remover o ID do produto da lista de selecionados
                                 var index = produtosSelecionados.indexOf(id);
                                 if (index !== -1) {
                                     produtosSelecionados.splice(index, 1);
                                 }
-                                botao.innerHTML = 'Selecionar Para Venda';
+                                botao.innerHTML = 'ADICIONAR À CARRINHO';
                                 botao.classList.remove('btn-sucess');
                                 botao.classList.add('btn-info');
                             } else {
                                 // Adicionar o ID do produto à lista de selecionados
                                 produtosSelecionados.push(id);
-                                botao.innerHTML = 'Selecionado';
+                                botao.innerHTML = 'ADICIONADO';
                                 botao.classList.remove('btn-info');
                                 botao.classList.add('btn-success');
                                 obterDados(id, nome, imagemUrl);

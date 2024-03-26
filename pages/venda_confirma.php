@@ -5,14 +5,19 @@ if (isset($_GET['produtos'])) {
     include "../connection/connection.php";
 
     $sql = "SELECT * FROM product WHERE idProduto IN (" . implode(',', $idsProdutos) . ")";
-    $dados = mysqli_query($conn, $sql);
+    $result = mysqli_query($conn, $sql);
 
-    
+    $dados = array();
+    while ($linha = mysqli_fetch_assoc($result)) {
+        $dados[] = $linha;
+    }
+
 } else {
     header("Location: pesquisa.php");
     exit();
 }
 ?>
+
 
 <!doctype html>
 <html lang="pt-br">
@@ -53,16 +58,16 @@ if (isset($_GET['produtos'])) {
         <div class="col">
             <h1 class="mb-4">Confirmação de Venda</h1>
 
-            <form action="" method="POST" enctype="multipart/form-data">
-                <div class="row">
-                    <?php
-                    while ($linha = mysqli_fetch_assoc($dados)) {
-                        $idProduto = $linha['idProduto'];
-                        $nome = $linha['nome'];
-                        $valorCompra = $linha['valorCompra'];
-                        $valorVenda = $linha['valorVenda'];
-                        $imagem = $linha['imagem'];
-                    ?>
+             <form action="" method="POST" enctype="multipart/form-data">
+             <div class="row">
+                 <?php foreach ($dados as $linha) { ?>
+                     <?php
+                     $idProduto = $linha['idProduto'];
+                     $nome = $linha['nome'];
+                     $valorCompra = $linha['valorCompra'];
+                     $valorVenda = $linha['valorVenda'];
+                     $imagem = $linha['imagem'];
+                     ?>
                         <div class="col-md-4 mb-3">
                             <div class="card">
                                 <img src="../img/<?php echo $imagem; ?>" class="card-img-top" alt="Imagem do Produto">
@@ -72,16 +77,18 @@ if (isset($_GET['produtos'])) {
                                     <p class="card-text">Preço de Venda: R$ <?php echo $valorVenda; ?></p>
                                     <div class="form-group">
                                         <label for="quantidade_<?php echo $idProduto; ?>">Quantidade:</label>
-                                        <input type="number" class="form-control" id="quantidade_<?php echo $idProduto; ?>" name="quantidade_<?php echo $idProduto; ?>" value="1" min="1">
+                                        <input type="number" class="form-control" id="quantidade_<?php echo $idProduto; ?>" name="quantidade_<?php echo $idProduto; ?>" value="1" min="1" onchange="capturarQuantidade()">
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     <?php } ?>
+
                     <div class="col-md-4 mb-3">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Teve Desconto?</h5>
+                                <h5 class="card-title">Tem Desconto?</h5>
                                 <div class="form-group">
                                     <label>Informe se houve desconto:</label>
                                     <div class="form-check">
@@ -100,6 +107,7 @@ if (isset($_GET['produtos'])) {
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmarVendaModal">Confirmar Venda</button>
             </form>
@@ -120,11 +128,13 @@ if (isset($_GET['produtos'])) {
                 </button>
             </div>
             <div class="modal-body">
-                <p>Produtos vendidos:</p>
+                <p>Produto(s) vendido(s):</p>
                 <ul>
-                    
+                    <?php foreach ($dados as $linha) { ?>
+                        <li><?php echo $linha['nome']; ?></li>
+                    <?php } ?>
                 </ul>
-                <p>Valor Total da Venda: R$ <?php $valorTotal ?> </p>
+                <p>Valor Total da Venda: R$ <span id="valor_total_venda"></span></p> <!-- Adicionando um id para o span -->
             </div>
             <div class="modal-footer">
                 <a href="venda.php" class="btn btn-success">Voltar</a>
@@ -134,14 +144,34 @@ if (isset($_GET['produtos'])) {
 </div>
 
 <script>
+    // Função para capturar o valor da quantidade e calcular o total
+    function capturarQuantidade() {
+        var totalVenda = 0;
+
+        <?php foreach ($dados as $linha) { ?>
+            var inputQuantidade = document.getElementById('quantidade_<?php echo $linha['idProduto']; ?>');
+            var quantidade = parseInt(inputQuantidade.value);
+
+            // Aqui você pode fazer qualquer cálculo necessário, por exemplo, somar o preço do produto vezes a quantidade
+            totalVenda += (quantidade * <?php echo $linha['valorVenda']; ?>);
+        <?php } ?>
+
+        // Exibindo o valor total da venda
+        document.getElementById('valor_total_venda').textContent = totalVenda.toFixed(2); // Usando toFixed para exibir duas casas decimais
+    }
+
+    // Chame esta função quando precisar capturar o valor
+    capturarQuantidade();
+</script>
+
+<script>
     function toggleDescontoGlobal() {
         var campoDesconto = document.getElementById('campo_desconto_global');
         var descontoCheckbox = document.getElementById('desconto_sim_global');
         campoDesconto.style.display = descontoCheckbox.checked ? 'block' : 'none';
     }
-
-    toggleDescontoGlobal();
 </script>
+
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
