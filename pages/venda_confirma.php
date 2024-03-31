@@ -167,6 +167,7 @@ if (isset($_GET['produtos'])) {
 
         var descontoGlobalCheckbox = document.getElementById('desconto_sim_global');
         var descontoGlobal = descontoGlobalCheckbox.checked;
+        var totalVendaComDesconto
 
         if (descontoGlobal) {
             // Obtém o valor do desconto informado pelo usuário

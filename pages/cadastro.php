@@ -16,8 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nomeImagem = moverImagem($imagem);
     
     $sql = "INSERT INTO `product`(`nome`, `material`, `tamanho`, `valorCompra`, `valorVenda`, `quantidade`,  `dataRegistro`, `imagem`)
-    VALUES ('$nome', '$material', '$tamanho', '$valorCompra', '$valorVenda', '$quantidade', '$dataRegistro', 
-            '$nomeImagem')";
+    VALUES ('$nome', '$material', '$tamanho', '$valorCompra', '$valorVenda', '$quantidade', '$dataRegistro', '$nomeImagem')";
 
     if (mysqli_query($conn, $sql)) {
         $cadastro_sucesso = true;

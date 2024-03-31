@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </section>
       </div>
 
-      <!-- Modal de exclusão bem-sucedida -->
+<!-- Modal de exclusão bem-sucedida -->
 <div class='modal fade <?php echo $exclusao_sucesso ? "show" : ""; ?>' id='exclusao-success' tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true'>
     <div class='modal-dialog' role='document'>
         <div class='modal-content'>
